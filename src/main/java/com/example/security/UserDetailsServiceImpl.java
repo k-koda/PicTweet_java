@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.business.domain.User;
 import com.example.business.repository.UserRepository;
+import com.example.util.UserCustom;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -21,10 +22,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        //return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        return new UserCustom(
+              user.getId(), 
+              user.getUsername(), 
+              user.getPassword(), 
+              grantedAuthorities
+          );
     }
 }

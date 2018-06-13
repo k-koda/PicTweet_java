@@ -32,8 +32,8 @@
     <h2>Sign in</h2>
     <form th:action="@{/user/login}" method="post" th:object="${user}" class="new_user">
       <div class="field">
-        <label for="user_nickname">Nickname</label>
-        <input id="user_nickname" type="text" placeholder="nickname" name="username" th:value="*{username}" />
+        <label for="user_email">Email</label>
+        <input id="user_email" type="text" placeholder="email" name="email" th:value="*{email}" />
       </div>
       <div class="field">
         <label for="user_password">Password</label>

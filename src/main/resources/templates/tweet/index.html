@@ -29,7 +29,7 @@
     <div class="contents row" th:each="tweet : ${tweets}">
       <div class="content__post" th:style="'background-image: url(' + @{${tweet.image}} + ');'">
         <p th:text="${tweet.text}"></p>
-        <span class="name" th:text="${tweet.name}"></span>
+        <span class="name" th:text="${tweet.user.username}"></span>
       </div>
     </div>
 
