@@ -21,6 +21,26 @@
         <span class="name" th:text="${tweet.name}"></span>
       </div>
     </div>
+
+    <div class="contents row">
+      <ul class="pagination" style="test-align: center;">
+        <li th:class="${tweets.isFirst()} ? disabled">
+          <a th:href="@{/(page=0)}">&laquo;</a>
+        </li>
+        <li th:class="${!tweets.hasPrevious()} ? disabled">
+          <a th:href="@{/(page=${tweets.getNumber() - 1})}">&larr;</a>
+        </li>
+        <li th:each="pageNumber : ${#numbers.sequence(tweets.getNumber() -5, tweets.getNumber()+5)}" th:if="${(pageNumber ge 0) and (pageNumber lt tweets.getTotalPages())}" th:class="${tweets.getNumber() == pageNumber} ? 'active pointer-disabled'">
+          <a th:href="@{/(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+        </li>
+        <li th:class="${tweets.hasNext()} ? disabled">
+          <a th:href="@{/(page=${tweets.getNumber() + 1})}">&rarr;</a>
+        </li>
+        <li th:class="${tweets.isLast()} ? disabled">
+          <a th:href="@{/(page=${tweets.getTotalPages() - 1})}">&raquo;</a>
+        </li>
+      </ul>
+    </div>
     <footer>
       <p>Copyright Pictweet 2017.</p>
     </footer>
