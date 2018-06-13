@@ -10,8 +10,15 @@
   <body>
     <header class="header">
       <div class="header__bar row">
-        <h1 class="grid-6"><a href="/">Pictweet</a></h1>
-        <div class="grid-6 user_nav"><a class="post" href="/tweet/new">投稿する</a></div>
+      <h1 class="grid-6"><a href="/">Pictweet</a></h1>
+      <div class="grid-6 user_nav">
+      	<a class="post" href="/tweet/new">投稿する</a>
+          <form th:action="@{/user/logout}" method="post">
+             <input type="submit" value="ログアウト" />
+          </form>
+          <a class="post" href="/user/login">ログイン</a>
+          <a class="post" href="/user/registration">登録</a>
+        </div>
       </div>
     </header>
 
