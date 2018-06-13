@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.business.domain.User;
@@ -17,6 +19,11 @@ public class UserController {
     private UserRepository userRepository;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @ModelAttribute(name = "login_user")
+    public UserDetails setLoginUser(@AuthenticationPrincipal UserDetails userDetails) {
+      return userDetails;
+    }
 	
     @RequestMapping(value = "/user/registration", method = RequestMethod.GET)
     public ModelAndView registration(ModelAndView mav) {

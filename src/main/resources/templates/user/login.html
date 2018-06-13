@@ -14,12 +14,16 @@
         <a href="/">PicTweet</a>
       </h1>
       <div class="grid-6 user_nav">
-        <a class="post" href="/tweet/new">投稿する</a>
-        <form th:action="@{/user/logout}" method="post">
-           <input type="submit" value="ログアウト" />
-        </form>
-        <a class="post" href="/user/login">ログイン</a>
-        <a class="post" href="/user/registration">登録</a>
+        <th:block th:if="${login_user != null}">
+          <a class="post" href="/tweet/new">投稿する</a>
+          <form th:action="@{/user/logout}" method="post">
+             <input type="submit" value="ログアウト" />
+          </form>
+        </th:block>
+        <th:block th:if="${login_user == null}">
+          <a class="post" href="/user/login">ログイン</a>
+          <a class="post" href="/user/registration">登録</a>
+        </th:block>
       </div>
     </div>
   </header>
