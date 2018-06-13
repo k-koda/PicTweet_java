@@ -36,4 +36,11 @@ public class UserController {
         mav.setViewName("redirect:/user/login");
         return mav;
     }
+    
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    public ModelAndView login(ModelAndView mav) {
+        mav.addObject("user", new User());
+        mav.setViewName("/user/login");
+        return mav;
+    }
 }
