@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.business.domain.User;
@@ -20,20 +20,20 @@ public class UserController {
   
   @RequestMapping(value = "/user/registration", method = RequestMethod.GET)
   public ModelAndView registration(ModelAndView mav) {
-      mav.addObject("user", new User());
-      mav.setViewName("/user/registration");
-      return mav;
+    mav.addObject("user", new User());
+    mav.setViewName("/user/registration");
+    return mav;
   }
 
   @RequestMapping(value = "/user/registration", method = RequestMethod.POST)
-  public ModelAndView registrarion(@ModelAttribute("user") User user, ModelAndView mav) {
-      if (!user.getPassword().equals(user.getPasswordConfirmation())) {
-          mav.setViewName("redirect:/user/registration");
-          return mav;
+  public ModelAndView registration(@ModelAttribute("user") User user, ModelAndView mav) {
+    if ( !user.getPassword().equals(user.getPasswordConfirmation()) ) {
+      mav.setViewName("redirect:/user/registration");
+      return mav;
       }
-      user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-      userRepository.save(user);
-      mav.setViewName("redirect:/user/login");
+    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()) );
+	  userRepository.save(user);
+    mav.setViewName("redirect:/user/login");
       return mav;
   }
   
@@ -43,5 +43,4 @@ public class UserController {
     mav.setViewName("/user/login");
     return mav;
   }
-  
 }
