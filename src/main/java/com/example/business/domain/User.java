@@ -23,6 +23,8 @@ public class User {
     private String passwordConfirmation;
     @OneToMany(mappedBy = "user")
     private List<Tweet> tweets;
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
     public Long getId() {
         return id;
@@ -54,10 +56,17 @@ public class User {
     public void setPasswordConfirmation(String passwordConfirmation) {
         this.passwordConfirmation = passwordConfirmation;
     }
+    
     public List<Tweet> getTweets() {
-      return tweets;
+        return tweets;
     }
     public void setTweets(List<Tweet> tweets) {
-      this.tweets = tweets;
+    	this.tweets = tweets;
+    }
+    public List<Comment> getComments() {
+        return comments;
+    }
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
