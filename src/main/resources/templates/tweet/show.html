@@ -56,6 +56,7 @@
         コメント機能
         <form method="post" th:action="@{'/tweet/' + ${tweet.id} + '/comment'}" th:object="${commentForm}">
           <textarea cols="30" name="text" placeholder="コメントする" rows="2"></textarea> 
+          <input type="submit" value="SEND" />
         </form>
       </div>
     </div>
