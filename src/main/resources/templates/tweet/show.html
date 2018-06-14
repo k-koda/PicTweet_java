@@ -46,7 +46,7 @@
       </div>
       <p th:text="*{text}"></p>
       <span class="name">
-        <a th:href="@{'/user/' + ${user.id}}" th:inline="text">
+        <a th:href="@{'/user/' + ${tweet.user.id}}" th:inline="text">
           <span>投稿者</span>
           <span th:text="${tweet.user.username}">techtech</span>
         </a>
