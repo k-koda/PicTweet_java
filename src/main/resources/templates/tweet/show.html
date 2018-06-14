@@ -58,6 +58,14 @@
           <textarea cols="30" name="text" placeholder="コメントする" rows="2"></textarea> 
           <input type="submit" value="SEND" />
         </form>
+
+        <div class="comments">
+          <h4>&lt;コメント一覧&gt;</h4>
+          <p th:if="tweet.comments != nll" th:each="comment : ${tweet.comments}" th:inline="text">
+            <strong><span th:text="${comment.user.username}">投稿者名</span></strong>
+            <span th:text="${comment.text}">コメント</span>
+          </p>
+        </div>
       </div>
     </div>
 
