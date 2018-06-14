@@ -35,10 +35,12 @@ public class TweetController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index(@PageableDefault(size=5) Pageable pageable, ModelAndView mav, @AuthenticationPrincipal UserDetails userDetails) {
+    public ModelAndView index(
+    		@PageableDefault(size=5) Pageable pageable, 
+    		ModelAndView mav
+    ) {
       Page<Tweet> tweets = tweetRepository.findAllByOrderByIdDesc(pageable);
       mav.addObject("tweets", tweets);
-      mav.addObject("login_user", userDetails);
       mav.setViewName("tweet/index");
       return mav;
     }
@@ -50,7 +52,11 @@ public class TweetController {
     }
 
     @RequestMapping(value = "/tweet/new", method = RequestMethod.POST)
-    public ModelAndView createTweet(@ModelAttribute Tweet tweet, @AuthenticationPrincipal UserCustom userCustom, ModelAndView mav) {
+    public ModelAndView createTweet(
+    		@ModelAttribute Tweet tweet,
+    		@AuthenticationPrincipal UserCustom userCustom, 
+    		ModelAndView mav
+    ) {
       User user = userRepository.findOne(userCustom.getId());
       tweet.setUser(user);
       tweetRepository.saveAndFlush(tweet);
@@ -85,7 +91,11 @@ public class TweetController {
       }
 
     @RequestMapping(value = "/tweet/{id}/delete", method = RequestMethod.GET)
-    public ModelAndView deleteTweet(@PathVariable("id") Long id, @AuthenticationPrincipal UserCustom userCustom, ModelAndView mav) {
+    public ModelAndView deleteTweet(
+    		@PathVariable("id") Long id, 
+    		@AuthenticationPrincipal UserCustom userCustom, 
+    		ModelAndView mav
+    ) {
         Tweet tweet = tweetRepository.findOne(id);
         if (!tweet.getUser().getId().equals(userCustom.getId())) {
             mav.setViewName("redirect:/");

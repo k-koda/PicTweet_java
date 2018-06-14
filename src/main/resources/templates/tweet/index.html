@@ -29,8 +29,10 @@
     <div class="contents row" th:each="tweet : ${tweets}">
       <div class="content__post" th:style="'background-image: url(' + @{${tweet.image}} + ');'">
          <div class="more">
+            <th:block th:if="${ login_user != null}">
+            <th:block th:if="${login_user.getId() == tweet.user.id}">
             <span>■</span>
-            <ul class="more_list">
+        	  <ul class="more_list">
                 <li><a th:href="@{'/tweet/' + ${tweet.id} + '/edit'}">編集</a></li>
                 <li>
                     <form th:action="@{'/tweet/' + ${tweet.id} + '/delete'}" method="post">
@@ -38,6 +40,8 @@
                     </form>
                 </li>
             </ul>
+            </th:block>
+            </th:block>
         </div>
         <p th:text="${tweet.text}"></p>
         <span class="name" th:text="${tweet.user.username}"></span>
@@ -63,6 +67,7 @@
         </li>
       </ul>
     </div>
+    
     <footer>
       <p>Copyright Pictweet 2017.</p>
     </footer>
