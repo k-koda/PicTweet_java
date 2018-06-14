@@ -32,7 +32,7 @@
             <span>■</span>
         	  <ul class="more_list">
               <li>
-                <a th:href="@{'/tweet/' + ${tweet.id}}">詳細</a>
+                <a th:href="@{'/tweet/' + ${tweet.id} + '/show'}">詳細</a>
               </li>
               <th:block th:if="${ login_user != null} ? ${tweet.user.id.equals(login_user.id)}">
                 <li><a th:href="@{'/tweet/' + ${tweet.id} + '/edit'}">編集</a></li>
