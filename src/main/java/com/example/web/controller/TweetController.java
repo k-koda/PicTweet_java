@@ -106,4 +106,11 @@ public class TweetController {
         return mav;
     }
     
+    @RequestMapping(value = "/tweet/{id}", method = RequestMethod.GET)
+    ModelAndView show(@PathVariable Long id, ModelAndView mav) {
+      Tweet tweet = tweetRepository.findOne(id);
+      mav.addObject("tweet", tweet);
+      mav.setViewName("tweet/show");
+      return mav;
+    }
 }
