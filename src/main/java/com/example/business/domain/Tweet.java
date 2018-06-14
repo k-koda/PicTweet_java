@@ -18,6 +18,7 @@ public class Tweet {
   private String image;
   private String text;
   @ManyToOne
+  @JoinColumn(updatable = false)
   private User user;
 
   public Long getId() {
