@@ -1,5 +1,6 @@
 package com.example.web.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,14 +66,14 @@ public class TweetController {
       return mav;
     }
 
-    @RequestMapping(value = "/tweet/{id}/edit", method = RequestMethod.POST) {
+    @RequestMapping(value = "/tweet/{id}/edit", method = RequestMethod.POST) 
       public ModelAndView updateTweet(
         @ModelAttribute Tweet editTweet, 
         @PathVariable("id") Long id,
         @AuthenticationPrincipal UserCustom userCustom,
         ModelAndView mav
       ) {
-        Tweet = tweet = tweetRepository.findOne(id);
+        Tweet tweet = tweetRepository.findOne(id);
         if (!tweet.getUser().getId().equals(userCustom.getId())) {
           mav.setViewName("redirect:/tweet/" + id + "/edit");
           return mav;
@@ -82,6 +83,21 @@ public class TweetController {
         mav.setViewName("tweet/update");
         return mav;
       }
-    }
+
+    @RequestMapping(value = "/tweet/{id}/delete", method = RequestMethod.POST) 
+      public ModelAndView deleteTweet(
+        @PathVariable("id") Long id,
+        @AuthenticationPrincipal UserCustom userCustom,
+        ModelAndView mav
+      ) {
+        Tweet tweet = tweetRepository.findOne(id);
+        if (!tweet.getUser().getId().equals(userCustom.getId())) {
+          mav.setViewName("redirect:/");
+          return mav;
+        }
+        tweetRepository.delete(tweet);
+        mav.setViewName("redirect:/");
+        return mav;
+      }
     
 }
